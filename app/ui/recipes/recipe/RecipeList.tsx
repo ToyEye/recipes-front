@@ -6,7 +6,7 @@ import RecipeItemSkeleton from "@/app/lib/skeletons/RecipeItemSkeleton";
 import RecipeItem from "./RecipeItem";
 
 type TRecipe = {
-  id: string;
+  _id: string;
   name: string;
   description: string;
   img: string;
@@ -16,7 +16,7 @@ type TRecipe = {
 type Props = {
   data: TRecipe[];
   itemCount: number;
-  loading: boolean;
+  loading?: boolean;
 };
 
 const RecipeList = ({ data, itemCount, loading }: Props) => {
@@ -30,7 +30,7 @@ const RecipeList = ({ data, itemCount, loading }: Props) => {
         ) : (
           <>
             {data.map(
-              ({ id, name, description, img, vote_average }: TRecipe) => {
+              ({ _id: id, name, description, img, vote_average }: TRecipe) => {
                 return (
                   <RecipeItem
                     key={id}

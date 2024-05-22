@@ -1,8 +1,6 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { useSession } from "next-auth/react";
-import { SessionProvider } from "next-auth/react";
 
 import Link from "next/link";
 
@@ -15,8 +13,6 @@ import { usePathname } from "next/navigation";
 const AppBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [path, setPath] = useState("/");
-  const { data: session, status } = useSession();
-  console.log(session?.user?.name, status);
 
   const onMenuToggle = () => {
     setIsMenuOpen(!isMenuOpen);
