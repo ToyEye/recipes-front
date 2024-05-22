@@ -3,17 +3,11 @@
 import React, { ChangeEvent } from "react";
 import Select, { SingleValue } from "react-select";
 
-import { useQuery } from "@apollo/client";
-
-import queries from "@/graphql/queries";
-
 type Props = {
   getCountry: (args: string) => void;
 };
 
 const SearchByCountry = ({ getCountry }: Props) => {
-  const { data, loading } = useQuery(queries.GET_COUNTRIES);
-
   const handleCountryChange = (
     newValue: SingleValue<ChangeEvent<HTMLSelectElement>>
   ) => {
@@ -30,16 +24,16 @@ const SearchByCountry = ({ getCountry }: Props) => {
         </label>
 
         <Select
-          isLoading={loading}
-          options={data?.countries.map(({ country }: { country: string }) => {
-            return {
-              value: country,
-              label: country,
-            };
-          })}
-          placeholder="Select a country"
-          isDisabled={loading}
-          onChange={handleCountryChange}
+        // isLoading={loading}
+        // options={data?.countries.map(({ country }: { country: string }) => {
+        //   return {
+        //     value: country,
+        //     label: country,
+        //   };
+        // })}
+        // placeholder="Select a country"
+        // isDisabled={loading}
+        // onChange={handleCountryChange}
         />
       </div>
     </div>
