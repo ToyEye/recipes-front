@@ -1,18 +1,37 @@
 "use client";
 
-import React, { ChangeEvent } from "react";
+import { getCountries } from "@/app/apiServise/countryAPI";
+import { useEffect, useState } from "react";
 import Select, { SingleValue } from "react-select";
 
 type Props = {
-  getCountry: (args: string) => void;
+  findCountry: (args: string) => void;
 };
 
-const SearchByCountry = ({ getCountry }: Props) => {
+const SearchByCountry = ({ findCountry }: Props) => {
+  const [countries, setCountries] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const data = async () => {
+      setLoading(true);
+      try {
+        const countries = await getCountries();
+        setCountries(countries);
+      } catch (error) {
+        console.log((error as Error).message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    data();
+  }, []);
+
   const handleCountryChange = (
-    newValue: SingleValue<ChangeEvent<HTMLSelectElement>>
+    newValue: SingleValue<{ value: string; label: string }>
   ) => {
     if (newValue && "value" in newValue) {
-      getCountry(newValue.value as "string");
+      findCountry(newValue.value as "string");
     }
   };
 
@@ -24,16 +43,16 @@ const SearchByCountry = ({ getCountry }: Props) => {
         </label>
 
         <Select
-        // isLoading={loading}
-        // options={data?.countries.map(({ country }: { country: string }) => {
-        //   return {
-        //     value: country,
-        //     label: country,
-        //   };
-        // })}
-        // placeholder="Select a country"
-        // isDisabled={loading}
-        // onChange={handleCountryChange}
+          isLoading={loading}
+          options={countries.map(({ country }: { country: string }) => {
+            return {
+              value: country,
+              label: country,
+            };
+          })}
+          placeholder="Select a country"
+          isDisabled={loading}
+          onChange={handleCountryChange}
         />
       </div>
     </div>
@@ -41,26 +60,3 @@ const SearchByCountry = ({ getCountry }: Props) => {
 };
 
 export default SearchByCountry;
-
-{
-  /* <select
-          id="country-filter"
-          defaultValue="default"
-          name="countries"
-          required
-          onChange={handleCountryChange}
-        >
-          <option className="w-48 md:w-64" disabled value="default">
-            {loading ? "loading..." : "Select a country"}
-          </option>
-          {data?.countries &&
-            data.countries
-              .slice()
-              .sort((a: { country: string }, b: { country: string }) =>
-                a.country.localeCompare(b.country)
-              )
-              .map(({ id, country }: { id: string; country: string }) => {
-                return <option key={id}>{country}</option>;
-              })}
-        </select> */
-}

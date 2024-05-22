@@ -8,7 +8,7 @@ const Recipes = () => {
     <main>
       <Hero />
       <RandomRecipe />
-      {/* <SearchRecipe /> */}
+      <SearchRecipe />
     </main>
   );
 };

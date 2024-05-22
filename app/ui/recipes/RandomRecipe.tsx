@@ -1,7 +1,7 @@
 import React from "react";
 import RecipeList from "./recipe/RecipeList";
 import Section from "../Section";
-import { getRandomRecipes } from "@/app/apiServise/apiServise";
+import { getRandomRecipes } from "@/app/apiServise/recipesAPI";
 
 const RandomRecipe = async () => {
   const country = await getRandomRecipes();
