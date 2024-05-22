@@ -16,7 +16,7 @@ const SearchRecipe = () => {
   const findCountry = (country: string) => {
     setCountry(country);
   };
-  console.log(countries);
+
   return (
     <Section>
       <div className=" px-4 md:px-6">

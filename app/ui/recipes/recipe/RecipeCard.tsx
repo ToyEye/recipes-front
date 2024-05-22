@@ -5,16 +5,7 @@ import Image from "next/image";
 import Heading from "@/app/ui/Heading";
 import Section from "@/app/ui/Section";
 import Rating from "@/app/ui/Rating";
-
-type Props = {
-  name: string;
-  description: string;
-  img: string;
-  ingredients: string[];
-  instructions: string;
-  vote_average: number;
-  id: string;
-};
+import { TRecipe } from "@/app/types/types";
 
 const RecipeCard = ({
   name,
@@ -24,7 +15,7 @@ const RecipeCard = ({
   instructions,
   vote_average,
   id,
-}: Props) => {
+}: TRecipe) => {
   const defaultImg = "https://generated.vusercontent.net/placeholder.svg";
   const backImg =
     "https://res.cloudinary.com/dglfc2nto/image/upload/v1714638459/recipes";
@@ -45,21 +36,18 @@ const RecipeCard = ({
           <div className="flex items-center mb-4">
             <Rating rating={vote_average} id={id} />
             <span className="ml-2 text-sm text-gray-500 dark:text-gray-400">
-              4.2
+              {vote_average}
             </span>
           </div>
           <h2 className="text-2xl font-bold mb-2">Ingredients:</h2>
-          <ul className="list-disc pl-6 mb-4">
-            <li>1 lb ground beef</li>
-            <li>1 onion, diced</li>
-            <li>3 cloves garlic, minced</li>
-            <li>1 can (28 oz) crushed tomatoes</li>
-            <li>1 tsp dried oregano</li>
-            <li>Salt and pepper to taste</li>
-            <li>1 lb spaghetti</li>
+          <ul className="list-disc pl-6 mb-4 capitalize">
+            {ingredients.map((ingredient) => (
+              <li key={ingredient}>{ingredient}</li>
+            ))}
           </ul>
           <h2 className="text-2xl font-bold mb-2">Instructions:</h2>
           <ol className="list-decimal pl-6 mb-4">
+            {instructions}
             <li>
               In a large skillet, cook the ground beef over medium-high heat
               until browned and crumbled, 5-7 minutes.
