@@ -13,6 +13,20 @@ const config: Config = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      screens: {
+        sm: "375px",
+
+        md: "768px",
+
+        lg: "1280px",
+      },
+      height: {
+        "mob-calc": "calc(100vh - 64px - 156px - 96px)",
+        "tab-calc": "calc(100vh - 64px - 116px - 192px)",
+        "desc-calc": "calc(100vh - 64px - 116px)",
+        "mob-calc-auth": "calc(100vh - 64px - 156px)",
+        "tab-calc-auth": "calc(100vh - 64px - 116px)",
+      },
     },
   },
   plugins: [],

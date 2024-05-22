@@ -1,8 +1,18 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Prata } from "next/font/google";
+import { Toaster } from "react-hot-toast";
+
+import Footer from "./ui/Footer";
+import AppBar from "./ui/AppBar";
+
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const prata = Prata({
+  weight: "400",
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-prata",
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -16,7 +26,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={prata.className}>
+        <AppBar />
+
+        {children}
+        <Footer />
+        <Toaster />
+      </body>
     </html>
   );
 }
