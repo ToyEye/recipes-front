@@ -7,7 +7,6 @@ import Input from "../Input";
 import Button from "../Button";
 
 import { loginSchema } from "@/app/lib/validation/authSchema";
-import { signIn } from "next-auth/react";
 
 const LoginForm = () => {
   const formik = useFormik({
@@ -16,19 +15,7 @@ const LoginForm = () => {
       password: "",
     },
     validationSchema: loginSchema,
-    onSubmit: async (values) => {
-      const result = await signIn("credentials", {
-        redirect: false,
-        email: values.email,
-        password: values.password,
-      });
-
-      if (result?.error) {
-        console.error(result.error);
-      } else {
-        console.log("Login successful", result);
-      }
-    },
+    onSubmit: async (values) => {},
   });
 
   return (

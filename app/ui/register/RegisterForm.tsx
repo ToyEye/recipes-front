@@ -2,9 +2,7 @@
 
 import React from "react";
 import { useFormik } from "formik";
-import { useMutation } from "@apollo/client";
 
-import mutation from "@/graphql/mutations";
 import Button from "../Button";
 import Input from "../Input";
 import Label from "../Label";
@@ -12,8 +10,6 @@ import Label from "../Label";
 import { sighupSchema } from "@/app/lib/validation/authSchema";
 
 const RegisterForm = () => {
-  const [signUp] = useMutation(mutation.SIGNUP);
-
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -22,13 +18,7 @@ const RegisterForm = () => {
       confirmPassword: "",
     },
     validationSchema: sighupSchema,
-    onSubmit: async (values) => {
-      const { data } = await signUp({
-        variables: values,
-      });
-
-      await localStorage.setItem("token", data?.signup.token);
-    },
+    onSubmit: async (values) => {},
   });
 
   return (
