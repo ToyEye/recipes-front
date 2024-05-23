@@ -22,7 +22,17 @@ const RecipeCard = ({
 
   return (
     <Section>
-      <Heading text={name} className="text-3xl font-bold mb-4 md:text-4xl" />
+      <Heading
+        text={name}
+        tag="h1"
+        className="text-3xl font-bold mb-4 md:text-4xl"
+      />
+      <Heading
+        text={description}
+        tag="h2"
+        className="text-2xl font-medium mb-4 md:text-xl"
+      />
+
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <Image
           src={!img ? defaultImg : backImg + img}
@@ -47,22 +57,9 @@ const RecipeCard = ({
           </ul>
           <h2 className="text-2xl font-bold mb-2">Instructions:</h2>
           <ol className="list-decimal pl-6 mb-4">
-            {instructions}
-            <li>
-              In a large skillet, cook the ground beef over medium-high heat
-              until browned and crumbled, 5-7 minutes.
-            </li>
-            <li>
-              Add the onion and garlic and cook until softened, about 3 minutes.
-            </li>
-            <li>
-              Stir in the crushed tomatoes, oregano, salt, and pepper. Simmer
-              for 15-20 minutes.
-            </li>
-            <li>
-              Meanwhile, cook the spaghetti according to package instructions.
-              Drain and serve with the Bolognese sauce.
-            </li>
+            {instructions.map((instruction) => (
+              <li key={instruction}>{instruction}</li>
+            ))}
           </ol>
           <div className="flex items-center mb-4">
             {/* <Image

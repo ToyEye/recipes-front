@@ -3,7 +3,7 @@ export type TRecipe = {
   description: string;
   img: string;
   ingredients: string[];
-  instructions: string;
+  instructions: string[];
   vote_average: number;
   id: string;
 };
