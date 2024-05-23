@@ -7,15 +7,28 @@ import Input from "../Input";
 import Button from "../Button";
 
 import { loginSchema } from "@/app/lib/validation/authSchema";
+import { signin } from "@/app/apiServise/userAPI";
+import toast from "react-hot-toast";
+import { useStore } from "@/app/store/store";
 
 const LoginForm = () => {
+  const { updateAuth } = useStore();
+
   const formik = useFormik({
     initialValues: {
       email: "",
       password: "",
     },
     validationSchema: loginSchema,
-    onSubmit: async (values) => {},
+    onSubmit: async (values) => {
+      try {
+        const newUser = await signin(values);
+        updateAuth(newUser);
+        toast.success(`Welcome back,  ${newUser.user.name}`);
+      } catch (error) {
+        toast.error((error as Error).message);
+      }
+    },
   });
 
   return (

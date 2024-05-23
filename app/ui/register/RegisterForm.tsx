@@ -8,8 +8,13 @@ import Input from "../Input";
 import Label from "../Label";
 
 import { sighupSchema } from "@/app/lib/validation/authSchema";
+import { signup } from "@/app/apiServise/userAPI";
+import toast from "react-hot-toast";
+import { useStore } from "@/app/store/store";
 
 const RegisterForm = () => {
+  const { updateAuth } = useStore();
+
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -18,7 +23,15 @@ const RegisterForm = () => {
       confirmPassword: "",
     },
     validationSchema: sighupSchema,
-    onSubmit: async (values) => {},
+    onSubmit: async (values) => {
+      try {
+        const newUser = await signup(values);
+        updateAuth(newUser);
+        toast.success(`Welcome, ${newUser.user.name}`);
+      } catch (error) {
+        toast.error((error as Error).message);
+      }
+    },
   });
 
   return (
