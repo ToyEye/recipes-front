@@ -11,9 +11,15 @@ import { sighupSchema } from "@/app/lib/validation/authSchema";
 import { signup } from "@/app/apiServise/userAPI";
 import toast from "react-hot-toast";
 import { useStore } from "@/app/store/store";
+import { useRouter } from "next/navigation";
 
 const RegisterForm = () => {
-  const { updateAuth } = useStore();
+  const { updateAuth, user } = useStore();
+  const router = useRouter();
+
+  if (user.name) {
+    router.push("/recipes");
+  }
 
   const formik = useFormik({
     initialValues: {

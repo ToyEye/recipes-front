@@ -2,6 +2,7 @@ import React from "react";
 import Section from "../Section";
 import Heading from "../Heading";
 import LoginForm from "./LoginForm";
+import withAuth from "../../lib/hoc/withAuth";
 
 const Login = () => {
   return (
@@ -14,4 +15,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default withAuth(Login);

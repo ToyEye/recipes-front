@@ -1,6 +1,8 @@
 "use client";
 
 import { useFormik } from "formik";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 import Label from "../Label";
 import Input from "../Input";
@@ -8,11 +10,15 @@ import Button from "../Button";
 
 import { loginSchema } from "@/app/lib/validation/authSchema";
 import { signin } from "@/app/apiServise/userAPI";
-import toast from "react-hot-toast";
 import { useStore } from "@/app/store/store";
 
 const LoginForm = () => {
-  const { updateAuth } = useStore();
+  const { updateAuth, user } = useStore();
+  const router = useRouter();
+
+  if (user.name) {
+    router.push("/recipes");
+  }
 
   const formik = useFormik({
     initialValues: {
