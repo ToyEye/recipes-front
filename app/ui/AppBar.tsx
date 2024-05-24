@@ -1,18 +1,20 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-
+import { usePathname } from "next/navigation";
 import Link from "next/link";
-
 import { GiHamburgerMenu } from "react-icons/gi";
 
 import NavBar from "./NavBar";
 import MobileMenu from "./MobileMenu";
-import { usePathname } from "next/navigation";
+import UserBar from "./UserBar";
+
+import { useStore } from "../store/store";
 
 const AppBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [path, setPath] = useState("/");
+  const { user } = useStore();
 
   const onMenuToggle = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -38,6 +40,7 @@ const AppBar = () => {
         </button>
 
         <NavBar location="header" />
+
         <MobileMenu isOpen={isMenuOpen} />
       </div>
     </header>

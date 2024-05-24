@@ -9,6 +9,9 @@ export const navLinks = [
     link: "/recipes",
     text: "Recipes",
   },
+];
+
+export const authLinks = [
   {
     id: 3,
     link: "/login",
