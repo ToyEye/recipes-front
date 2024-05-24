@@ -3,7 +3,7 @@ import axios from "axios";
 axios.defaults.baseURL = "https://recipes-server-83pi.onrender.com/api";
 
 export const getRecipes = async (page: number) => {
-  const { data } = await axios.get(`/recipes?page=${page}&per_page=10`);
+  const { data } = await axios.get(`/recipes?page=${page}&per_page=9`);
   return data;
 };
 
@@ -19,7 +19,7 @@ export const getRecipeById = async (id: string) => {
 
 export const getRecipeByCountry = async (country: string, page: number) => {
   const { data } = await axios.get(
-    `/recipes/countries/${country}?page=${page}&per_page=10`
+    `/recipes/countries/${country}?page=${page}&per_page=9`
   );
   return data;
 };

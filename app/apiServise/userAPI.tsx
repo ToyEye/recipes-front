@@ -2,7 +2,7 @@ import axios from "axios";
 
 axios.defaults.baseURL = "https://recipes-server-83pi.onrender.com/api";
 
-const setToken = (token: string) => {
+export const setToken = (token: string) => {
   axios.defaults.headers.common.Authorization = `Bearer ${token}`;
 };
 
@@ -36,5 +36,6 @@ export const logout = async () => {
 };
 
 export const getCurrent = async () => {
-  await axios.get("/users/current");
+  const { data } = await axios.get("/users/current");
+  return data;
 };

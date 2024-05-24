@@ -7,14 +7,13 @@ import { GiHamburgerMenu } from "react-icons/gi";
 
 import NavBar from "./NavBar";
 import MobileMenu from "./MobileMenu";
-import UserBar from "./UserBar";
 
 import { useStore } from "../store/store";
 
 const AppBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [path, setPath] = useState("/");
-  const { user } = useStore();
+  const { getCurrentUser } = useStore();
 
   const onMenuToggle = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -28,6 +27,10 @@ const AppBar = () => {
     }
     setPath(pathname);
   }, [path, pathname]);
+
+  useEffect(() => {
+    getCurrentUser();
+  }, [getCurrentUser]);
 
   return (
     <header className="bg-gray-900 text-white py-4 px-6">
