@@ -1,6 +1,7 @@
 import React from "react";
 
 import Login from "../ui/login/Login";
+import withAuth from "../lib/hoc/withAuth";
 
 const page = () => {
   return (
@@ -10,4 +11,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default withAuth(page);
