@@ -1,10 +1,11 @@
 import React from "react";
-import Register from "../ui/register/Register";
+
+import Login from "../../ui/login/Login";
 
 const page = () => {
   return (
     <main className="h-mob-calc-auth md:h-tab-calc-auth lg:h-desc-calc">
-      <Register />
+      <Login />
     </main>
   );
 };
