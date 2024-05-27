@@ -5,9 +5,10 @@ type Props = {
   as: string;
   text: string;
   type: "submit" | "button";
+  onClick: () => void;
 };
 
-const Button = ({ as, text, type }: Props) => {
+const Button = ({ as, text, type, onClick }: Props) => {
   const styles = clsx(
     "font-bold py-2 px-4 rounded transition-all duration-300 hover:scale-110",
     {
@@ -20,7 +21,7 @@ const Button = ({ as, text, type }: Props) => {
   );
 
   return (
-    <button className={styles} type={type}>
+    <button className={styles} type={type} onClick={onClick}>
       {text}
     </button>
   );

@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { getCurrent, setToken } from "../apiServise/userAPI";
+import { getCurrent, setToken, logout } from "../apiServise/userAPI";
 import { persist, devtools } from "zustand/middleware";
 
 type User = { name: string | null; email: string | null };
@@ -26,7 +26,8 @@ export const useStore = create<State>()(
         updateAuth: (authCredentials) => {
           set({ user: authCredentials.user, token: authCredentials.token });
         },
-        logoutUser: () => {
+        logoutUser: async () => {
+          await logout();
           set({ user: { name: null, email: null } });
         },
         getCurrentUser: async () => {

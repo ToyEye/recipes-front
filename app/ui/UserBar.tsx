@@ -5,15 +5,13 @@ import { useStore } from "../store/store";
 import Button from "./Button";
 
 const UserBar = () => {
-  const { user } = useStore();
+  const { user, logoutUser } = useStore();
 
   return (
-    // <div className="hidden lg:flex">
     <>
       <p>{user.name}</p>
-      <Button text="Logout" as="primary" type="button" />
+      <Button text="Logout" as="primary" type="button" onClick={logoutUser} />
     </>
-    // </div>
   );
 };
 
