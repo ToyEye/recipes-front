@@ -3,7 +3,7 @@ import AuthLayout from "./AuthLayout";
 
 export const metadata: Metadata = {
   title: "Auth",
-  description: "Auth to ricpe site",
+  description: "Auth to recipe site",
 };
 
 export default function Layout({

@@ -4,7 +4,7 @@ import React from "react";
 
 import { useStore } from "@/app/store/store";
 
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, redirect } from "next/navigation";
 import { useEffect } from "react";
 
 const AuthLayout = ({
@@ -13,17 +13,18 @@ const AuthLayout = ({
   children: React.ReactNode;
 }>) => {
   const { user } = useStore();
-  const router = useRouter();
+
   const pathname = usePathname();
+
   const hasAccess =
-    (pathname === "/register" && user.name) ||
-    (pathname === "/login" && user.name);
+    Boolean(pathname === "/register" && user.name) ||
+    Boolean(pathname === "/login" && user.name);
 
   useEffect(() => {
-    if (!hasAccess) {
-      router.push("/recipe");
+    if (hasAccess) {
+      redirect("/recipes");
     }
-  }, [hasAccess, router]);
+  }, [hasAccess]);
 
   return <>{children}</>;
 };
