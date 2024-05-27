@@ -26,6 +26,8 @@ const AuthLayout = ({
     }
   }, [hasAccess]);
 
+  if (hasAccess) return;
+
   return <>{children}</>;
 };
 

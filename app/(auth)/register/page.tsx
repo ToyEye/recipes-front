@@ -1,9 +1,9 @@
-import Register from "@/app/ui/register/Register";
 import React from "react";
+import Register from "@/app/ui/register/Register";
 
 const page = () => {
   return (
-    <main className="h-mob-calc-auth md:h-tab-calc-auth lg:h-desc-calc">
+    <main className="">
       <Register />
     </main>
   );
