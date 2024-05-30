@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import clsx from "clsx";
 
 import RecipeCard from "@/app/ui/recipes/recipe/RecipeCard";

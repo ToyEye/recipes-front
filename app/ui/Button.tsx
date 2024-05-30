@@ -5,7 +5,7 @@ type Props = {
   as: string;
   text: string;
   type: "submit" | "button";
-  onClick: () => void;
+  onClick?: () => void;
 };
 
 const Button = ({ as, text, type, onClick }: Props) => {

@@ -1,6 +1,8 @@
 import { create } from "zustand";
 import { getCurrent, setToken, logout } from "../apiServise/userAPI";
 import { persist, devtools } from "zustand/middleware";
+import { getReviewsByRecipe } from "../apiServise/reviewsAPI";
+import { TReview } from "../types/types";
 
 type User = { name: string | null; email: string | null };
 
@@ -9,7 +11,7 @@ interface AuthCredentials {
   token: string | null;
 }
 
-interface State {
+interface userState {
   user: User;
   token: string | null;
   updateAuth: (authCredentials: AuthCredentials) => void;
@@ -17,7 +19,14 @@ interface State {
   getCurrentUser: () => void;
 }
 
-export const useStore = create<State>()(
+interface reviewState {
+  reviews: [TReview] | null;
+  getReviews: (arg: string) => void;
+  loading: boolean;
+  error: null | string;
+}
+
+export const useStore = create<userState>()(
   devtools(
     persist(
       (set, get) => ({
@@ -48,3 +57,22 @@ export const useStore = create<State>()(
     )
   )
 );
+
+export const useReviews = create<reviewState>((set) => ({
+  reviews: null,
+  loading: false,
+  error: null,
+  getReviews: async (id: string) => {
+    set({ loading: true });
+
+    try {
+      const reviews = await getReviewsByRecipe(id);
+
+      set({ reviews });
+    } catch (error) {
+      set({ error: (error as Error).message });
+    } finally {
+      set({ loading: false });
+    }
+  },
+}));
