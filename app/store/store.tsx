@@ -1,7 +1,13 @@
 import { create } from "zustand";
 import { getCurrent, setToken, logout } from "../apiServise/userAPI";
 import { persist, devtools } from "zustand/middleware";
-import { getReviewsByRecipe } from "../apiServise/reviewsAPI";
+import { immer } from "zustand/middleware/immer";
+
+import {
+  getReviewsByRecipe,
+  addReviewForRecipe,
+} from "../apiServise/reviewsAPI";
+
 import { TReview } from "../types/types";
 
 type User = { name: string | null; email: string | null };
@@ -22,6 +28,7 @@ interface userState {
 interface reviewState {
   reviews: [TReview] | null;
   getReviews: (arg: string) => void;
+  addReview: (args: TReview) => void;
   loading: boolean;
   error: null | string;
 }
@@ -58,21 +65,40 @@ export const useStore = create<userState>()(
   )
 );
 
-export const useReviews = create<reviewState>((set) => ({
-  reviews: null,
-  loading: false,
-  error: null,
-  getReviews: async (id: string) => {
-    set({ loading: true });
+export const useReviews = create<reviewState>()(
+  devtools(
+    immer((set) => ({
+      reviews: null,
+      loading: false,
+      error: null,
+      getReviews: async (id: string) => {
+        set({ loading: true });
 
-    try {
-      const reviews = await getReviewsByRecipe(id);
+        try {
+          const reviews = await getReviewsByRecipe(id);
 
-      set({ reviews });
-    } catch (error) {
-      set({ error: (error as Error).message });
-    } finally {
-      set({ loading: false });
-    }
-  },
-}));
+          set({ reviews });
+        } catch (error) {
+          set({ error: (error as Error).message });
+        } finally {
+          set({ loading: false });
+        }
+      },
+      addReview: async (credential) => {
+        set({ loading: true });
+
+        try {
+          const reviews = await addReviewForRecipe(credential);
+
+          set((state) => {
+            state.reviews?.push(reviews);
+          });
+        } catch (error) {
+          set({ error: (error as Error).message });
+        } finally {
+          set({ loading: false });
+        }
+      },
+    }))
+  )
+);

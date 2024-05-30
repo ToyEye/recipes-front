@@ -9,6 +9,10 @@ export const getReviewsByRecipe = async (id: string) => {
 };
 
 export const addReviewForRecipe = async (credential: TReview) => {
-  const { data } = await axios.post(`/reviews`, credential);
+  const { data } = await axios.post(`/reviews`, {
+    author: credential.author,
+    description: credential.description,
+    recipeId: credential.id,
+  });
   return data;
 };

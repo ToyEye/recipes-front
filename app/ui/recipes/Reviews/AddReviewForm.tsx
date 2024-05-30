@@ -3,14 +3,18 @@ import { useFormik } from "formik";
 
 import Heading from "../../Heading";
 import Button from "../../Button";
-import { useStore } from "@/app/store/store";
+import { useReviews, useStore } from "@/app/store/store";
 
 const AddReviewForm = ({ recipeId }: { recipeId: string }) => {
   const { user } = useStore();
+  const { addReview } = useReviews();
 
   const formik = useFormik({
     initialValues: { description: "" },
     onSubmit: ({ description }) => {
+      if (user.name) {
+        addReview({ description, author: user.name, id: recipeId });
+      }
       console.log({ description, author: user.name, recipeId });
     },
   });
