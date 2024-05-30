@@ -7,3 +7,9 @@ export type TRecipe = {
   vote_average: number;
   id: string;
 };
+
+export type TReview = {
+  author: string;
+  description: string;
+  id: string;
+};

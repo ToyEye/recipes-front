@@ -8,6 +8,7 @@ import RecipeDetailsSkeleton from "@/app/lib/skeletons/RecipeDetailsSkeleton";
 import { getRecipeById } from "@/app/apiServise/recipesAPI";
 
 import { TRecipe } from "@/app/types/types";
+import Reviews from "@/app/ui/recipes/Reviews/Reviews";
 
 const Recipe = ({ params }: { params: { id: string } }) => {
   const [recipe, setRecipe] = useState<null | TRecipe>(null);
@@ -35,6 +36,8 @@ const Recipe = ({ params }: { params: { id: string } }) => {
     <main className={style}>
       {recipe && <RecipeCard {...recipe} />}
       {!recipe && <RecipeDetailsSkeleton />}
+
+      <Reviews id={params.id} />
     </main>
   );
 };

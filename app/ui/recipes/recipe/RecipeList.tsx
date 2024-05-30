@@ -22,7 +22,7 @@ type Props = {
 const RecipeList = ({ data, itemCount, loading }: Props) => {
   return (
     <>
-      <ul className="grid grid-cols-1  md:grid-cols-3 gap-8">
+      <ul className="grid grid-cols-1 md:grid-cols-3 gap-8">
         {loading ? (
           Array(itemCount)
             .fill(null)
