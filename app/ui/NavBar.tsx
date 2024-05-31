@@ -33,8 +33,10 @@ const NavBar = ({ location, isOpenMenu }: Props) => {
       "flex-col items-center": location === "modalMenu",
     },
     {
-      "grid grid-cols-2 mb-8 justify-items-center md:grid-cols-4":
-        location === "footer",
+      "grid grid-cols-2 mb-8 justify-items-center": location === "footer",
+    },
+    {
+      " md:grid-cols-4": location === "footer" && !user.name,
     },
     {
       "grid-cols-2 md:grid-cols-2": location === "footer" && user.name,

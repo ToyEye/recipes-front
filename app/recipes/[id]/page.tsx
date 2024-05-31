@@ -30,10 +30,8 @@ const Recipe = ({ params }: { params: { id: string } }) => {
     getData();
   }, [params.id]);
 
-  const style = clsx({ "lg:h-desc-calc": !recipe });
-
   return (
-    <main className={style}>
+    <main>
       {recipe && <RecipeCard {...recipe} />}
       {!recipe && <RecipeDetailsSkeleton />}
 

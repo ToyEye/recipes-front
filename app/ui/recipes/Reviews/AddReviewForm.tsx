@@ -27,7 +27,7 @@ const AddReviewForm = ({ recipeId }: { recipeId: string }) => {
           placeholder="Enter review"
           name="description"
           id="description"
-          className="resize-none  h-28 p-4 bg-gray-100 "
+          className="resize-none h-28 p-4 transition-all bg-gray-100 rounded-md border border-transparent outline-none hover:border-gray-300"
           onChange={formik.handleChange}
         ></textarea>
         <div>
