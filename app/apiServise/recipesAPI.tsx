@@ -23,3 +23,10 @@ export const getRecipeByCountry = async (country: string, page: number) => {
   );
   return data;
 };
+
+export const changeVoteByRecipe = async (id: string, newVote: number) => {
+  const { data } = await axios.put(`/recipes/changevote/${id}`, {
+    newVote,
+  });
+  return { vote_count: data.vote_count, vote_average: data.vote_average };
+};

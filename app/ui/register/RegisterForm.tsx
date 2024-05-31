@@ -85,7 +85,9 @@ const RegisterForm = () => {
             as="primary"
           />
           {formik.errors.confirmPassword && formik.touched.confirmPassword && (
-            <p>{formik.errors.confirmPassword}</p>
+            <p className="text-sm text-red-500 font-medium">
+              {formik.errors.confirmPassword}
+            </p>
           )}
         </div>
         <Button text="Register" type="submit" as="primary" />

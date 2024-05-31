@@ -2,14 +2,18 @@
 
 import React from "react";
 import RatingStars from "react-rating-stars-component";
+import { useRecipe } from "../store/store";
 
 const Rating = ({ rating = 0, size = 24, id = "" }) => {
-  const ratingChanged = async (newRating: number) => {
-    try {
-      console.log("Vote changed successfully");
-    } catch (error) {
-      console.error("Error changing vote", error);
-    }
+  const { changeVote } = useRecipe();
+
+  const ratingChanged = (newRating: number) => {
+    changeVote(id, newRating);
+    // try {
+    //   console.log(typeof newRating);
+    // } catch (error) {
+    //   console.error("Error changing vote", error);
+    // }
   };
 
   return (

@@ -5,7 +5,7 @@ import Image from "next/image";
 import Heading from "@/app/ui/Heading";
 import Section from "@/app/ui/Section";
 import Rating from "@/app/ui/Rating";
-import { TRecipe } from "@/app/types/types";
+import { IRecipe } from "@/app/types/types";
 
 const RecipeCard = ({
   name,
@@ -14,8 +14,8 @@ const RecipeCard = ({
   ingredients,
   instructions,
   vote_average,
-  id,
-}: TRecipe) => {
+  _id,
+}: IRecipe) => {
   const defaultImg = "https://generated.vusercontent.net/placeholder.svg";
   const backImg =
     "https://res.cloudinary.com/dglfc2nto/image/upload/v1714638459/recipes";
@@ -44,7 +44,7 @@ const RecipeCard = ({
 
         <div>
           <div className="flex items-center mb-4">
-            <Rating rating={vote_average} id={id} />
+            <Rating rating={vote_average} id={_id} />
             <span className="ml-2 text-sm text-gray-500 dark:text-gray-400">
               {vote_average}
             </span>

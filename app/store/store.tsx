@@ -8,7 +8,8 @@ import {
   addReviewForRecipe,
 } from "../apiServise/reviewsAPI";
 
-import { TReview } from "../types/types";
+import { TReview, IRecipe, IStatus } from "../types/types";
+import { changeVoteByRecipe, getRecipeById } from "../apiServise/recipesAPI";
 
 type User = { name: string | null; email: string | null };
 
@@ -25,12 +26,16 @@ interface userState {
   getCurrentUser: () => void;
 }
 
-interface reviewState {
-  reviews: [TReview] | null;
+interface reviewState extends IStatus {
+  reviews: TReview[] | null;
   getReviews: (arg: string) => void;
   addReview: (args: TReview) => void;
-  loading: boolean;
-  error: null | string;
+}
+
+interface RecipeState extends IStatus {
+  recipe: IRecipe | null;
+  getRecipe: (id: string) => Promise<void>;
+  changeVote: (id: string, vote: number) => Promise<void>;
 }
 
 export const useStore = create<userState>()(
@@ -62,6 +67,46 @@ export const useStore = create<userState>()(
       }),
       { name: "token", partialize: (state) => ({ token: state.token }) }
     )
+  )
+);
+
+export const useRecipe = create<RecipeState>()(
+  devtools(
+    immer((set) => ({
+      recipe: null,
+      loading: false,
+      error: null,
+      getRecipe: async (id: string) => {
+        set({ loading: true });
+
+        try {
+          const recipe = await getRecipeById(id);
+
+          set({ recipe });
+        } catch (error) {
+          set({ error: (error as Error).message });
+        } finally {
+          set({ loading: false });
+        }
+      },
+      changeVote: async (id: string, vote: number) => {
+        set({ loading: true });
+        console.log(vote, id);
+        try {
+          const voteChanges = await changeVoteByRecipe(id, vote);
+
+          set((state) => {
+            if (state.recipe) {
+              state.recipe = { ...state.recipe, ...voteChanges };
+            }
+          });
+        } catch (error) {
+          set({ error: (error as Error).message });
+        } finally {
+          set({ loading: false });
+        }
+      },
+    }))
   )
 );
 
