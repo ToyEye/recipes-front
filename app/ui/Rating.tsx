@@ -9,11 +9,6 @@ const Rating = ({ rating = 0, size = 24, id = "" }) => {
 
   const ratingChanged = (newRating: number) => {
     changeVote(id, newRating);
-    // try {
-    //   console.log(typeof newRating);
-    // } catch (error) {
-    //   console.error("Error changing vote", error);
-    // }
   };
 
   return (
