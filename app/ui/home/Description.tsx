@@ -12,7 +12,7 @@ const Description = () => {
         <Heading
           text="Welcome to the Recipe Hub"
           tag="h1"
-          className="underline mb-6 text-xl leading-4 tracking-wider md:text-2xl lg:text-3xl"
+          className="underline mb-6 text-xl leading-4 tracking-wider md:text-2xl lg:text-3xl underline-offset-[6px] decoration-1"
         />
         <Text
           as="primary"
@@ -25,9 +25,13 @@ const Description = () => {
           {greeting.map(({ title, text }) => (
             <li
               key={title}
-              className="border border-white rounded-lg px-4 py-6 md:last:col-span-2 overflow-hidden"
+              className="border border-white rounded-lg px-4 py-6 md:last:col-span-2 overflow-hidden "
             >
-              <Heading text={title} tag="h3" className="mb-4" />
+              <Heading
+                text={title}
+                tag="h3"
+                className="mb-4 uppercase tracking-wide"
+              />
               <Text as="primary" text={text} />
             </li>
           ))}
