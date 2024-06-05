@@ -37,9 +37,9 @@ const Description = () => {
           ))}
         </ul>
 
-        <Heading text="Happy cooking" tag="h3" className="mb-4" />
+        <Heading text="Happy cooking" tag="h3" className="mb-4 text-right" />
 
-        <Heading text="The Recipe Hub Team" tag="h4" />
+        <Heading text="The Recipe Hub Team" tag="h4" className="text-right" />
       </div>
     </Section>
   );
