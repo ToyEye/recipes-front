@@ -12,7 +12,11 @@ export const addReviewForRecipe = async (credential: TReview) => {
   const { data } = await axios.post(`/reviews`, {
     author: credential.author,
     description: credential.description,
-    recipeId: credential.id,
+    recipeId: credential._id,
   });
   return data;
+};
+
+export const deleteReviewForRecipe = async (id: string) => {
+  await axios.delete(`/reviews/${id}`);
 };

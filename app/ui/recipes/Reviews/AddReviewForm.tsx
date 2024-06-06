@@ -15,7 +15,7 @@ const AddReviewForm = ({ recipeId }: { recipeId: string }) => {
     validationSchema: reviewSchema,
     onSubmit: ({ description }) => {
       if (user.name) {
-        addReview({ description, author: user.name, id: recipeId });
+        addReview({ description, author: user.name, _id: recipeId });
       }
     },
   });

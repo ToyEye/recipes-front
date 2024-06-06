@@ -11,7 +11,8 @@ export interface IRecipe {
 export type TReview = {
   author: string;
   description: string;
-  id: string;
+  _id: string;
+  owner?: string;
 };
 
 export interface IStatus {

@@ -2,13 +2,14 @@ import clsx from "clsx";
 import React from "react";
 
 type Props = {
-  as: string;
-  text: string;
+  as?: string;
+  text: string | React.ReactNode;
   type: "submit" | "button";
   onClick?: () => void;
+  className?: string;
 };
 
-const Button = ({ as, text, type, onClick }: Props) => {
+const Button = ({ as, text, type, onClick, className = "" }: Props) => {
   const styles = clsx(
     "font-bold py-2 px-4 rounded transition-all duration-300 hover:scale-110",
     {
@@ -21,7 +22,7 @@ const Button = ({ as, text, type, onClick }: Props) => {
   );
 
   return (
-    <button className={styles} type={type} onClick={onClick}>
+    <button className={styles + " " + className} type={type} onClick={onClick}>
       {text}
     </button>
   );

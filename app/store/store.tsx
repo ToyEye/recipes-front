@@ -6,12 +6,13 @@ import { immer } from "zustand/middleware/immer";
 import {
   getReviewsByRecipe,
   addReviewForRecipe,
+  deleteReviewForRecipe,
 } from "../apiServise/reviewsAPI";
 
 import { TReview, IRecipe, IStatus } from "../types/types";
 import { changeVoteByRecipe, getRecipeById } from "../apiServise/recipesAPI";
 
-type User = { name: string | null; email: string | null };
+type User = { name: string | null; email: string | null; id: string | null };
 
 interface AuthCredentials {
   user: User;
@@ -28,8 +29,9 @@ interface userState {
 
 interface reviewState extends IStatus {
   reviews: TReview[] | null;
-  getReviews: (arg: string) => void;
-  addReview: (args: TReview) => void;
+  getReviews: (arg: string) => Promise<void>;
+  deleteReview: (id: string) => Promise<void>;
+  addReview: (args: TReview) => Promise<void>;
 }
 
 interface RecipeState extends IStatus {
@@ -42,14 +44,14 @@ export const useStore = create<userState>()(
   devtools(
     persist(
       (set, get) => ({
-        user: { name: null, email: null },
+        user: { name: null, email: null, id: null },
         token: null,
         updateAuth: (authCredentials) => {
           set({ user: authCredentials.user, token: authCredentials.token });
         },
         logoutUser: async () => {
           await logout();
-          set({ user: { name: null, email: null } });
+          set({ user: { name: null, email: null, id: null } });
         },
         getCurrentUser: async () => {
           const token = get().token;
@@ -137,6 +139,25 @@ export const useReviews = create<reviewState>()(
 
           set((state) => {
             state.reviews?.push(reviews);
+          });
+        } catch (error) {
+          set({ error: (error as Error).message });
+        } finally {
+          set({ loading: false });
+        }
+      },
+      deleteReview: async (id: string) => {
+        set({ loading: true });
+
+        try {
+          await deleteReviewForRecipe(id);
+
+          set((state) => {
+            if (state.reviews) {
+              state.reviews = state.reviews?.filter(
+                (review) => review._id !== id
+              );
+            }
           });
         } catch (error) {
           set({ error: (error as Error).message });
