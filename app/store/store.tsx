@@ -7,6 +7,7 @@ import {
   getReviewsByRecipe,
   addReviewForRecipe,
   deleteReviewForRecipe,
+  changeDescription,
 } from "../apiServise/reviewsAPI";
 
 import { TReview, IRecipe, IStatus } from "../types/types";
@@ -30,6 +31,7 @@ interface userState {
 interface reviewState extends IStatus {
   reviews: TReview[] | null;
   getReviews: (arg: string) => Promise<void>;
+  changeDescriprion: <T>(id: T, description: T) => Promise<void>;
   deleteReview: (id: string) => Promise<void>;
   addReview: (args: TReview) => Promise<void>;
 }
@@ -156,6 +158,34 @@ export const useReviews = create<reviewState>()(
             if (state.reviews) {
               state.reviews = state.reviews?.filter(
                 (review) => review._id !== id
+              );
+            }
+          });
+        } catch (error) {
+          set({ error: (error as Error).message });
+        } finally {
+          set({ loading: false });
+        }
+      },
+      changeDescriprion: async <T,>(id: T, description: T) => {
+        set({ loading: true });
+
+        try {
+          const newDescription = await changeDescription(id, description);
+
+          set((state) => {
+            if (state.reviews) {
+              console.log(
+                state.reviews?.map((review) =>
+                  review._id === id
+                    ? { ...review, description: newDescription }
+                    : review
+                )
+              );
+              state.reviews = state.reviews?.map((review) =>
+                review._id === id
+                  ? { ...review, description: newDescription }
+                  : review
               );
             }
           });

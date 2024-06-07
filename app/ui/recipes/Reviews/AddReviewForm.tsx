@@ -13,9 +13,10 @@ const AddReviewForm = ({ recipeId }: { recipeId: string }) => {
   const formik = useFormik({
     initialValues: { description: "" },
     validationSchema: reviewSchema,
-    onSubmit: ({ description }) => {
+    onSubmit: ({ description }, action) => {
       if (user.name) {
         addReview({ description, author: user.name, _id: recipeId });
+        action.resetForm();
       }
     },
   });
