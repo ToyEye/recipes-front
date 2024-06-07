@@ -19,3 +19,9 @@ export interface IStatus {
   loading: boolean;
   error: null | string;
 }
+
+export type TUser = {
+  name: string | null;
+  email: string | null;
+  id: string | null;
+};

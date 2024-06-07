@@ -10,18 +10,16 @@ import {
   changeDescription,
 } from "../apiServise/reviewsAPI";
 
-import { TReview, IRecipe, IStatus } from "../types/types";
+import { TReview, IRecipe, IStatus, TUser } from "../types/types";
 import { changeVoteByRecipe, getRecipeById } from "../apiServise/recipesAPI";
 
-type User = { name: string | null; email: string | null; id: string | null };
-
 interface AuthCredentials {
-  user: User;
+  user: TUser;
   token: string | null;
 }
 
 interface userState {
-  user: User;
+  user: TUser;
   token: string | null;
   updateAuth: (authCredentials: AuthCredentials) => void;
   logoutUser: () => void;

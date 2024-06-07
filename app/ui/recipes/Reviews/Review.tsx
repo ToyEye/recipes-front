@@ -1,29 +1,24 @@
-import React, { useState } from "react";
-import Heading from "../../Heading";
-import { useReviews, useStore } from "@/app/store/store";
+import { useState } from "react";
 import { MdDelete, MdEdit, MdOutlineCancel } from "react-icons/md";
 
+import Heading from "../../Heading";
 import Button from "../../Button";
+import DescriptionForm from "./DescriptionForm";
+
+import { useReviews, useStore } from "@/app/store/store";
 import { TReview } from "@/app/types/types";
-import { useFormik } from "formik";
-import { reviewSchema } from "@/app/lib/validation/reviewSchema";
 
 const Review = ({ _id: id, description, author, owner }: TReview) => {
   const [isEdit, setIsEdit] = useState(false);
   const { error, loading, deleteReview, changeDescriprion } = useReviews();
   const { user } = useStore();
 
-  const formik = useFormik({
-    initialValues: { description },
-    validationSchema: reviewSchema,
-    onSubmit: ({ description }, action) => {
-      if (user.name) {
-        changeDescriprion(id, description);
-        setIsEdit(false);
-        action.resetForm();
-      }
-    },
-  });
+  const changeDescriprionHandler = (description: string) => {
+    if (user.name) {
+      changeDescriprion(id, description);
+      setIsEdit(false);
+    }
+  };
 
   return (
     <li key={id} className="border-b-2 last:border-none py-4 relative">
@@ -35,27 +30,13 @@ const Review = ({ _id: id, description, author, owner }: TReview) => {
       </div>
       {isEdit ? (
         <div className="relative">
-          <form
-            onSubmit={formik.handleSubmit}
-            className="flex flex-col gap-4 mb-6"
-          >
-            <textarea
-              placeholder="Enter review"
-              name="description"
-              id="description"
-              defaultValue={description}
-              className="resize-none h-28 p-4 transition-all bg-gray-100 rounded-md border border-transparent outline-none hover:border-gray-300"
-              onChange={formik.handleChange}
-            ></textarea>
-            {formik.errors.description && formik.touched.description && (
-              <p className="text-sm text-red-500 font-medium">
-                {formik.errors.description}
-              </p>
-            )}
-            <div>
-              <Button text="Edit review" type="submit" as="secondary" />
-            </div>
-          </form>
+          <DescriptionForm
+            handler={changeDescriprionHandler}
+            user={user}
+            btnText="Edit review"
+            defaultValue={description}
+          />
+
           <Button
             text={<MdOutlineCancel />}
             type="button"
